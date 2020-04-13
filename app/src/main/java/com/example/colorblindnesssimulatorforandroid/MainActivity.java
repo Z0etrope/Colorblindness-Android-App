@@ -174,7 +174,21 @@ public class MainActivity extends AppCompatActivity {
             mCamera.setParameters(p);
         };
     }
+    
+    public void onSepiaClick(View view){
+        p = mCamera.getParameters();
+        p.setColorEffect("mono");
+        mCamera.setParameters(p);
+        mCamera.startPreview();
+    }
 
+    public void onNoneClick(View view){
+        p = mCamera.getParameters();
+        p.setColorEffect("none");
+        mCamera.setParameters(p);
+        mCamera.startPreview();
+    }
+    
     private static class CameraPreview extends SurfaceView implements SurfaceHolder.Callback{
         private static SurfaceHolder mHolder;
         private static Camera mCamera;
