@@ -20,5 +20,23 @@
             android:layout_weight="1"
             android:text="switch camera"/>
     </LinearLayout>
+    
+    <Button
+        android:id="@+id/sepia"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:layout_centerHorizontal="true"
+        android:onClick="onSepiaClick"
+        android:text="mono"
+        android:visibility="visible" />
+
+    <Button
+        android:id="@+id/none"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:onClick="onNoneClick"
+        android:text="None" />
 
 </LinearLayout>
