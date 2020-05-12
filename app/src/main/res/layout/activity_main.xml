@@ -7,12 +7,22 @@
         android:id="@+id/camera_preview"
         android:layout_width="match_parent"
         android:layout_height="0dp"
-        android:layout_weight="1"/>
+        android:layout_weight="1">
+
+
+    </FrameLayout>
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="50dp"
         android:orientation="horizontal">
+        <Button
+            android:id="@+id/button_capture"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:text="CAPTURE"
+            android:onClick="onCaptureClick"/>
         <Button
             android:id="@+id/switchCamera"
             android:layout_width="0dp"

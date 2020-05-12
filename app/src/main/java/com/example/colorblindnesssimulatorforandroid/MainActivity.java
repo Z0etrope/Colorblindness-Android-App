@@ -9,10 +9,18 @@ import android.app.ActivityManager;
 import android.content.Context;
 import android.content.pm.PackageManager;
 
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
+import android.graphics.Rect;
+import android.graphics.YuvImage;
 import android.hardware.Camera;
+import android.media.MediaScannerConnection;
+import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
 
+import android.os.Environment;
+import android.util.Log;
 import android.view.OrientationEventListener;
 import android.view.Surface;
 import android.view.SurfaceHolder;
@@ -22,9 +30,13 @@ import android.widget.Button;
 import android.widget.FrameLayout;
 import android.widget.ImageView;
 
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
 import java.io.IOException;
 
 public class MainActivity extends AppCompatActivity {
+    final String TAG = "mytag";
 
 
     @Override
@@ -91,6 +103,7 @@ public class MainActivity extends AppCompatActivity {
             mCamera = Camera.open();
             mPreview = new CameraPreview(this, mCamera);
             preview = findViewById(R.id.camera_preview);
+
             preview.addView(mPreview);
             final Button switchCameraButton = findViewById(R.id.switchCamera);
             switchCameraButton.setOnClickListener(new View.OnClickListener() {
@@ -174,7 +187,12 @@ public class MainActivity extends AppCompatActivity {
             mCamera.setParameters(p);
         };
     }
-    
+
+    public void onCaptureClick(View view){
+        mCamera.takePicture(null,null,mPicture);
+    }
+
+    // MARK: -- grey scale filter
     public void onSepiaClick(View view){
         p = mCamera.getParameters();
         p.setColorEffect("mono");
@@ -217,5 +235,57 @@ public class MainActivity extends AppCompatActivity {
 
         }
     }
+
+    private Camera.PictureCallback mPicture = new Camera.PictureCallback() {
+
+        @Override
+        public void onPictureTaken(byte[] data, Camera camera) {
+
+            File pictureFile = getOutputMediaFile();
+            if (pictureFile == null){
+                Log.d(TAG, "Error creating media file, check storage permissions: ");
+                return;
+            }
+
+            MediaScannerConnection.scanFile(MainActivity.this,
+                    new String[] { pictureFile.toString() }, null,
+                    new MediaScannerConnection.OnScanCompletedListener() {
+                        public void onScanCompleted(String path, Uri uri) {
+                            Log.i("ExternalStorage", "Scanned " + path + ":");
+                            Log.i("ExternalStorage", "-> uri=" + uri);
+                        }
+                    });
+            try {
+                FileOutputStream fos = new FileOutputStream(pictureFile);
+                fos.write(data);
+                fos.close();
+            } catch (FileNotFoundException e) {
+                Log.d(TAG, "File not found: " + e.getMessage());
+            } catch (IOException e) {
+                Log.d(TAG, "Error accessing file: " + e.getMessage());
+            }
+        }
+    };
+
+    /** File for saving an image */
+    private static File getOutputMediaFile(){
+
+        File mediaStorageDir = new File(Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_PICTURES), "CamPictures");
+
+        // Create the storage directory if it does not exist
+        if (! mediaStorageDir.exists()){
+            if (! mediaStorageDir.mkdirs()){
+                Log.d("tag", "failed to create directory");
+                return null;
+            }
+        }
+
+        // Create a media file name
+        //String timeStamp = new SimpleDateFormat("yyyyMMdd_HHmmss").format(new Date());
+        Log.d("path", mediaStorageDir.getAbsolutePath());
+        return new File(mediaStorageDir.getAbsolutePath() + File.separator +
+                "IMG_" + ".jpg");
+    }
+
 
 }
