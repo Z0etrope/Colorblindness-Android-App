@@ -1,52 +1,89 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:orientation="vertical" android:layout_width="match_parent"
-    android:layout_height="match_parent">
-
-    <FrameLayout
-        android:id="@+id/camera_preview"
-        android:layout_width="match_parent"
-        android:layout_height="0dp"
-        android:layout_weight="1">
-
-
-    </FrameLayout>
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:paddingTop="16dp"
+    android:paddingRight="16dp"
+    android:paddingLeft="16dp"
+    android:paddingBottom="16dp"
+    tools:context=".MainActivity"
+    android:weightSum="10">
 
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="50dp"
-        android:orientation="horizontal">
-        <Button
-            android:id="@+id/button_capture"
-            android:layout_width="0dp"
-            android:layout_height="match_parent"
-            android:layout_weight="1"
-            android:text="CAPTURE"
-            android:onClick="onCaptureClick"/>
-        <Button
-            android:id="@+id/switchCamera"
-            android:layout_width="0dp"
-            android:layout_height="match_parent"
-            android:layout_weight="1"
-            android:text="switch camera"/>
-    </LinearLayout>
-    
-    <Button
-        android:id="@+id/sepia"
-        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_alignParentBottom="true"
-        android:layout_centerHorizontal="true"
-        android:onClick="onSepiaClick"
-        android:text="mono"
-        android:visibility="visible" />
+        android:layout_weight="1">
+
+        <Button
+            android:id="@+id/normal"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:background="@android:color/darker_gray"
+            android:textColor="@android:color/white"
+            android:text="Normal" />
+        <Button
+            android:id="@+id/deutan"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:background="@android:color/darker_gray"
+            android:textColor="@android:color/white"
+            android:text="Deutan" />
+        <Button
+            android:id="@+id/protan"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:background="@android:color/darker_gray"
+            android:textColor="@android:color/white"
+            android:text="Protan" />
+        <Button
+            android:id="@+id/tritan"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:background="@android:color/darker_gray"
+            android:textColor="@android:color/white"
+            android:text="Tritan" />
+        <Button
+            android:id="@+id/grayscale"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:background="@android:color/darker_gray"
+            android:textColor="@android:color/white"
+            android:text="Gray" />
+
+    </LinearLayout>
+
+
+    <ImageView
+        android:id="@+id/imageView"
+        android:layout_width="match_parent"
+        android:layout_height="fill_parent"
+        android:layout_weight="7"/>
 
     <Button
-        android:id="@+id/none"
-        android:layout_width="wrap_content"
+        android:id="@+id/btnCamera"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_alignParentBottom="true"
-        android:onClick="onNoneClick"
-        android:text="None" />
+        android:layout_weight="1"
+        android:background="@android:color/background_dark"
+        android:textColor="@android:color/white"
+        android:text="Open Camera"/>
+
+    <Button
+        android:id="@+id/btnSave"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_weight="1"
+        android:background="@android:color/background_dark"
+        android:textColor="@android:color/white"
+        android:text="Save"/>
+
 
 </LinearLayout>
